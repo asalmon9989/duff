@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { useDraft } from './useDraft'
 import { useDraftGame } from './useDraftGame'
 import type { Draft, DraftGame, Player, Entry, Pick } from '../types'
-import { calculateTotalPicks, getCurrentPlayer, getAvailableEntries, isDraftComplete, canMakePick, initializeTurnOrder } from '../utils/snakeDraft'
+import { calculateTotalPicks, getCurrentPlayer, getAvailableEntries, isDraftComplete, canMakePick } from '../utils/snakeDraft'
 
 export function useDraftLogic(gameId: string | null = null) {
   const draftGame = useDraftGame()
@@ -193,6 +193,9 @@ export function useDraftLogic(gameId: string | null = null) {
   }
 
   const startDraft = async (gameId: string, playerNames: string[]) => {
+    if (!gameId) {
+      throw new Error('Game ID is required')
+    }
     // Shuffle players and assign turn order
     const shuffledNames = [...playerNames]
     for (let i = shuffledNames.length - 1; i > 0; i--) {

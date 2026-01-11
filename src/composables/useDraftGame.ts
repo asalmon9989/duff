@@ -235,7 +235,7 @@ export function useDraftGame() {
     console.log('Attempting to delete game:', gameId, game)
 
     // Delete the game - use select() to get confirmation of what was deleted
-    const { data, error, count } = await supabase
+    const { data, error } = await supabase
       .from('draft_games')
       .delete()
       .eq('id', gameId)

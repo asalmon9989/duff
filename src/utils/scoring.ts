@@ -76,5 +76,5 @@ export function getWinner(results: VoteResult[]): VoteResult | null {
   }
 
   // Return the player with the highest score
-  return results[0]
+  return results[0] || null
 }

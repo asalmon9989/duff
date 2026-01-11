@@ -33,11 +33,11 @@ export function getCurrentPlayer(state: DraftState): Player | null {
   if (isForward) {
     // Forward: 0, 1, 2, ..., n-1
     const positionInRound = (state.currentPickNumber - 1) % playersCount
-    return players[positionInRound]
+    return players[positionInRound] || null
   } else {
     // Backward: n-1, n-2, ..., 1, 0
     const positionInRound = (state.currentPickNumber - 1) % playersCount
-    return players[playersCount - 1 - positionInRound]
+    return players[playersCount - 1 - positionInRound] || null
   }
 }
 
@@ -71,10 +71,12 @@ export function canMakePick(state: DraftState, entryId: string): boolean {
 
 export function initializeTurnOrder(players: Player[]): Player[] {
   // Create a copy and shuffle
-  const shuffled = [...players]
+  const shuffled: Player[] = [...players]
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    const temp = shuffled[i]!
+    shuffled[i] = shuffled[j]!
+    shuffled[j] = temp
   }
   return shuffled
 }

@@ -67,7 +67,7 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   console.log("[Router] Navigation completed to:", to.path);
 });
 
